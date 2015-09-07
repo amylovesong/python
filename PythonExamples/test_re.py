@@ -46,8 +46,18 @@ m = re.match(r, d)
 
 # -- pre-compile
 re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
-print re_telephone.match('010-12345').groups()
-print re_telephone.match('010-8086').groups()
+#print re_telephone.match('010-12345').groups()
+#print re_telephone.match('010-8086').groups()
 
 # -- exercise
-re_email = re.compile(r'^$')
+re_email = re.compile(r'^[0-9a-zA-Z.]+@[a-z]+[.][a-z]+$')
+#print re_email.match('someone@gmail.com')
+#print re_email.match('bill.gates@microsoft.com')
+#print re_email.match('bill.gates@m.com')
+re_email = re.compile(r'^(<[a-zA-Z\s]+>)\s[0-9a-zA-Z.]+@[a-z]+\.[a-z]+$')
+m = re_email.match('<Tom Paris> tom@voyager.org')
+#m = re_email.match('someone@youku.com')
+print m
+if m:
+	print m.groups()
+	print m.group(1)
