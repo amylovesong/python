@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+		<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+			<channel>
+		
+<title>Yahoo! Weather - Beijing, CN</title>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Beijing__CN/*http://weather.yahoo.com/forecast/CHXX0008_c.html</link>
+<description>Yahoo! Weather for Beijing, CN</description>
+<language>en-us</language>
+<lastBuildDate>Mon, 14 Sep 2015 1:59 pm CST</lastBuildDate>
+<ttl>60</ttl>
+<yweather:location city="Beijing" region=""   country="China"/>
+<yweather:units temperature="C" distance="km" pressure="mb" speed="km/h"/>
+<yweather:wind chill="25"   direction="180"   speed="11.27" />
+<yweather:atmosphere humidity="46"  visibility="7"  pressure="1018.4"  rising="0" />
+<yweather:astronomy sunrise="5:53 am"   sunset="6:26 pm"/>
+<image>
+<title>Yahoo! Weather</title>
+<width>142</width>
+<height>18</height>
+<link>http://weather.yahoo.com</link>
+<url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+</image>
+<item>
+<title>Conditions for Beijing, CN at 1:59 pm CST</title>
+<geo:lat>39.91</geo:lat>
+<geo:long>116.39</geo:long>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Beijing__CN/*http://weather.yahoo.com/forecast/CHXX0008_c.html</link>
+<pubDate>Mon, 14 Sep 2015 1:59 pm CST</pubDate>
+<yweather:condition  text="Haze"  code="21"  temp="25"  date="Mon, 14 Sep 2015 1:59 pm CST" />
+<description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/21.gif"/><br />
+<b>Current Conditions:</b><br />
+Haze, 25 C<BR />
+<BR /><b>Forecast:</b><BR />
+Mon - Partly Cloudy. High: 27 Low: 13<br />
+Tue - Sunny. High: 27 Low: 14<br />
+Wed - Partly Cloudy. High: 27 Low: 15<br />
+Thu - Partly Cloudy. High: 28 Low: 17<br />
+Fri - Isolated Thunderstorms. High: 27 Low: 14<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Beijing__CN/*http://weather.yahoo.com/forecast/CHXX0008_c.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+<yweather:forecast day="Mon" date="14 Sep 2015" low="13" high="27" text="Partly Cloudy" code="29" />
+<yweather:forecast day="Tue" date="15 Sep 2015" low="14" high="27" text="Sunny" code="32" />
+<yweather:forecast day="Wed" date="16 Sep 2015" low="15" high="27" text="Partly Cloudy" code="30" />
+<yweather:forecast day="Thu" date="17 Sep 2015" low="17" high="28" text="Partly Cloudy" code="30" />
+<yweather:forecast day="Fri" date="18 Sep 2015" low="14" high="27" text="Isolated Thunderstorms" code="37" />
+<guid isPermaLink="false">CHXX0008_2015_09_18_7_00_CST</guid>
+</item>
+</channel>
+</rss>
+
+<!-- fan464.sports.gq1.yahoo.com Mon Sep 14 02:00:47 PDT 2015 -->
