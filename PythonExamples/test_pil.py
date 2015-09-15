@@ -5,7 +5,7 @@
 
 __author__ = 'sunxiaoling'
 
-import Image, ImageFilter
+from PIL import Image, ImageFilter
 import os
 
 def e_pil_scale():
@@ -22,5 +22,5 @@ def e_pil_filter():
 	im2.save(os.path.join('.', 'files', 'img_blur.jpg'), 'jpeg')
 	
 if __name__ == '__main__':
-#	e_pil_scale()
+	e_pil_scale()
 	e_pil_filter()
