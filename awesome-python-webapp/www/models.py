@@ -7,7 +7,7 @@ __author__ = 'sunxiaoling'
 Models for user, blog, comment.
 '''
 
-import time.uuid
+import time, uuid
 
 from transwarp.db import next_id
 from transwarp.orm import Model, StringField, BooleanField, FloatField, TextField

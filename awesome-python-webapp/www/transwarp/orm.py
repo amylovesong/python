@@ -110,7 +110,7 @@ def _gen_sql(table_name, mappings):
 		nullable = f.nullable
 		if f.primary_key:
 			pk = f.name
-		sql.append(nullable and ' `%s` %s,' % (f.name, ddl) or ' `%s` %s not null,' % (f.name, dll))
+		sql.append(nullable and ' `%s` %s,' % (f.name, ddl) or ' `%s` %s not null,' % (f.name, ddl))
 	sql.append(' primay key(`%s`)' % pk)
 	sql.append(');')
 	return '\n'.join(sql)
@@ -133,7 +133,7 @@ class ModelMetaclass(type):
 			logging.warning('Redefine class: %s' % name)
 
 		logging.info('Scan ORMapping %s...' % name)
-		mapping = dict() # 读取cls的Field字段
+		mappings = dict() # 读取cls的Field字段
 		primary_key = None # 查找primary_key字段
 		for k, v in attrs.iteritems():
 			if isinstance(v, Field):
