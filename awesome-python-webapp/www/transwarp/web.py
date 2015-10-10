@@ -642,18 +642,18 @@ class Request(object):
 			...
 		KeyError: 'empty'
 		>>> b = '----WebKitFormBoundaryQQ3J8kPsjFpTmqNz'
-        >>> pl = ['--%s' % b, 'Content-Disposition: form-data; name=\\"name\\"\\n', 'Scofield', '--%s' % b, 'Content-Disposition: form-data; name=\\"name\\"\\n', 'Lincoln', '--%s' % b, 'Content-Disposition: form-data; name=\\"file\\"; filename=\\"test.txt\\"', 'Content-Type: text/plain\\n', 'just a test', '--%s' % b, 'Content-Disposition: form-data; name=\\"id\\"\\n', '4008009001', '--%s--' % b, '']
-        >>> payload = '\\n'.join(pl)
-        >>> r = Request({'REQUEST_METHOD':'POST', 'CONTENT_LENGTH':str(len(payload)), 'CONTENT_TYPE':'multipart/form-data; boundary=%s' % b, 'wsgi.input':StringIO(payload)})
-        >>> r.get('name')
-        u'Scofield'
-        >>> r.gets('name')
-        [u'Scofield', u'Lincoln']
-        >>> f = r.get('file')
-        >>> f.filename
-        u'test.txt'
-        >>> f.file.read()
-        'just a test'
+		>>> pl = ['--%s' % b, 'Content-Disposition: form-data; name=\\"name\\"\\n', 'Scofield', '--%s' % b, 'Content-Disposition: form-data; name=\\"name\\"\\n', 'Lincoln', '--%s' % b, 'Content-Disposition: form-data; name=\\"file\\"; filename=\\"test.txt\\"', 'Content-Type: text/plain\\n', 'just a test', '--%s' % b, 'Content-Disposition: form-data; name=\\"id\\"\\n', '4008009001', '--%s--' % b, '']
+		>>> payload = '\\n'.join(pl)
+		>>> r = Request({'REQUEST_METHOD':'POST', 'CONTENT_LENGTH':str(len(payload)), 'CONTENT_TYPE':'multipart/form-data; boundary=%s' % b, 'wsgi.input':StringIO(payload)})
+		>>> r.get('name')
+		u'Scofield'
+		>>> r.gets('name')
+		[u'Scofield', u'Lincoln']
+		>>> f = r.get('file')
+		>>> f.filename
+		u'test.txt'
+		>>> f.file.read()
+		'just a test'
 		'''
 		r = self._get_raw_input()[key]
 		if isinstance(r, list):
