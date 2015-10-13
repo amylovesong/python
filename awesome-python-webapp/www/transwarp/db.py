@@ -41,7 +41,6 @@ class Dict(dict):
 	>>> d3.c
 	3
 	'''
-	
 	def __init__(self, names=(), values=(), **kw):
 		super(Dict, self).__init__(**kw)
 		for k, v in zip(names, values):
@@ -81,6 +80,7 @@ class MultiColumnsError(DBError):
 	pass
 
 class _LasyConnection(object):
+
 	def __init__(self):
 		self.connection = None
 
@@ -97,7 +97,7 @@ class _LasyConnection(object):
 	def rollback(self):
 		self.connection.rollback()
 
-	def cleanup(sefl):
+	def cleanup(self):
 		if self.connection:
 			connection = self.connection
 			self.connection = None
@@ -179,7 +179,7 @@ class _ConnectionCtx(object):
 		
 	def __exit__(self, exctype, excvalue, traceback):
 		global _db_ctx
-		if self.shoud_cleanup:
+		if self.should_cleanup:
 			_db_ctx.cleanup()
 			
 def connection():
@@ -264,8 +264,23 @@ def transaction():
 	with transaction():
 		pass
 
-	TODO: doctest here
-
+	>>> def update_profile(id, name, rollback):
+	...     u = dict(id=id, name=name, email='%s@test.org' % name, passwd=name, last_modified=time.time())
+	...     insert('user', **u)
+	...     r = update('update user set passwd=? where id=?', name.upper(), id)
+	...     if rollback:
+	...             raise StandardError('will cause rollback...')
+	>>> with transaction():
+	...     update_profile(900301, 'Python', False)
+	>>> select_one('select * from user where id=?', 900301).name
+	u'Python'
+	>>> with transaction():
+	...     update_profile(900302, 'Ruby', True)
+	Traceback (most recent call last):
+		...
+	StandardError: will cause rollback...
+	>>> select('select * from user where id=?', 900302)
+	[]
 	'''
 	return _TransactionCtx()
 
@@ -298,8 +313,8 @@ def _select(sql, first, *args):
 			values = cursor.fetchone()
 			if not values:
 				return None
-			return Dict(names, values)
-		return [Dict(names, x) for x in cursor.fecthall()]
+			return Dict(name, values)
+		return [Dict(names, x) for x in cursor.fetchall()]
 	finally:
 		if cursor:
 			cursor.close()
@@ -374,9 +389,9 @@ def update(sql, *args):
 	return _update(sql, *args)
 
 if __name__ == '__main__':
-	logging.basicConfig(level=logging.DEBUG)
+	logging.basicConfig(level=logging.ERROR)
 	create_engine('www-data', 'www-data', 'test')
-	update('drop table is exists user')
+	update('drop table if exists user')
 	update('create table user (id int primary key, name text, email text, passwd text, last_modified real)')
 	import doctest
 	doctest.testmod()
