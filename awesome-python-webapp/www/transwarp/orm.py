@@ -110,8 +110,8 @@ def _gen_sql(table_name, mappings):
 		nullable = f.nullable
 		if f.primary_key:
 			pk = f.name
-		sql.append(nullable and ' `%s` %s,' % (f.name, ddl) or ' `%s` %s not null,' % (f.name, ddl))
-	sql.append(' primay key(`%s`)' % pk)
+		sql.append(nullable and '  `%s` %s,' % (f.name, ddl) or '  `%s` %s not null,' % (f.name, ddl))
+	sql.append('  primary key(`%s`)' % pk)
 	sql.append(');')
 	return '\n'.join(sql)
 
@@ -171,9 +171,49 @@ class Model(dict):
 	'''
 	Base class for ORM.
 
-	TODO: doctest here
+	>>> class User(Model):
+	...     id = IntegerField(primary_key=True)
+	...     name = StringField()
+	...     email = StringField(updatable=False)
+	...     passwd = StringField(default=lambda: '******')
+	...     last_modified = FloatField()
+	...     def pre_insert(self):
+	...             self.last_modified = time.time()
+	>>> u = User(id=10190, name='Amy', email='orm@db.org')
+	>>> r = u.insert()
+	>>> u.email
+	'orm@db.org'
+	>>> u.passwd
+	'******'
+	>>> u.last_modified > (time.time() - 2)
+	True
+	>>> f = User.get(10190)
+	>>> f.name
+	u'Amy'
+	>>> f.email
+	u'orm@db.org'
+	>>> f.email = 'change@db.org'
+	>>> r = f.update() # change email but email is non-updatable!
+	>>> len(User.find_all())
+	1
+	>>> g = User.get(10190)
+	>>> g.email
+	u'orm@db.org'
+	>>> r = g.delete()
+	>>> len(db.select('select * from user where id=10190'))
+	0
+	>>> import json
+	>>> print User().__sql__()
+	-- generating SQL for user:
+	create table `user` (
+	  `id` bigint not null,
+	  `name` varchar(255) not null,
+	  `email` varchar(255) not null,
+	  `passwd` varchar(255) not null,
+	  `last_modified` real not null,
+	  primary key(`id`)
+	);
 	'''
-
 	__metaclass__ = ModelMetaclass
 
 	def __init__(self, **kw):
@@ -249,7 +289,7 @@ class Model(dict):
 				L.append('`%s`=?' % k)
 				args.append(arg)
 		pk = self.__primary_key__.name
-		args.append(getattr(slef, pk))
+		args.append(getattr(self, pk))
 		db.update('update `%s` set %s where %s=?' % (self.__table__, ','.join(L), pk), *args)
 		return self
 
