@@ -1221,11 +1221,11 @@ class Jinja2TemplateEngine(TemplateEngine):
 	'''
 	Render using jinja2 template engine.
 
-	TODO: doctest here
-
-
-
-	
+	>>> templ_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'test')
+	>>> engine = Jinja2TemplateEngine(templ_path)
+	>>> engine.add_filter('datetime', lambda dt: dt.strftime('%Y-%m-%d %H:%M:%S'))
+	>>> engine('jinja2-test.html', dict(name='Amylovesong', posted_at=datetime.datetime(2015, 10, 15, 15, 10, 15)))
+	'<p>Hello, Amylovesong.</p><span>2015-10-15 15:10:15</span>'
 	'''
 
 	def __init__(self, templ_dir, **kw):
