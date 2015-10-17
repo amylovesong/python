@@ -548,7 +548,7 @@ class Route(object):
 
 	def __str__(self):
 		if self.is_static:
-			return 'Route(static,%s,path=%s)' % (self.method, selfself.path)
+			return 'Route(static,%s,path=%s)' % (self.method, self.path)
 		return 'Route(dynamic,%s,path=%s)' % (self.method, self.path)
 
 	__repr__ = __str__
@@ -1513,7 +1513,7 @@ class WSGIApplication(object):
 				start_response(e.status, response.headers)
 				return ['<html><body><h1>', e.status, '</h1></body></html>']
 			except Exception, e:
-				logging.excetion(e)
+				logging.exception(e)
 				if not debug:
 					start_response('500 Internal Server Error', [])
 					return ['<html><body><h1>500 Internal Server Error</h1></body></html>']
