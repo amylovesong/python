@@ -49,14 +49,12 @@ def user_interceptor(next):
 	logging.info('try to bind user from session cookie...')
 	user = None
 	cookie = ctx.request.cookies.get(_COOKIE_NAME)
-	logging.info(cookie)
 	if cookie:
 		logging.info('parse session cookie...')
 		user = parse_signed_cookie(cookie)
 		if user:
 			logging.info('bind user <%s> to session...' % user.email)
 	ctx.request.user = user
-	logging.info(user)
 	return next()
 
 @interceptor('/manage/')
@@ -89,12 +87,7 @@ def authenticate():
 	email = i.email.strip().lower()
 	password = i.password
 	remember = i.remember
-	logging.info(email)
-	logging.info(password)
 	user = User.find_first('where email=?', email)
-	logging.info('user:', user)
-	logging.info(user.password)
-	logging.info(user is None)
 	if user is None:
 		raise APIError('auth:failed', 'email', 'Invalid email.')
 	elif user.password != password:
@@ -136,6 +129,30 @@ def register_user():
 @get('/register')
 def register():
 	return dict()
+
+@view('manage_blog_edit.html')
+@get('/manage/blogs/create')
+def manage_blogs_create():
+	return dict(id=None, action='/api/blogs', redirect='/manage/blogs', user=ctx.request.user)
+
+@api
+@post('/api/blogs')
+def api_create_blog():
+	check_admin()
+	i = ctx.request.input(name='', summary='', content='')
+	name = i.name.strip()
+	summary = i.summary.strip()
+	content = i.content.strip()
+	if not name:
+		raise APIValueError('name', 'name cannot be empty.')
+	if not summary:
+		raise APIValueError('summary', 'summary cannot by empty.')
+	if not content:
+		raise APIValueError('content', 'content cannot be empty.')
+	user = ctx.request.user
+	blog = Blog(user_id=user.id, user_name=user.name, name=name, summary=summary, content=content)
+	blog.insert()
+	return blog
 
 @api
 @get('/api/users')
